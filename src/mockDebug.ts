@@ -812,7 +812,16 @@ export class MockDebugSession extends LoggingDebugSession {
 				this.sendEvent(new InvalidatedEvent( ['variables'] ));
 			}
 			this.sendResponse(response);
-		} else {
+		} 
+		else if (command === 'toggleStackChange') {
+			this._runtime.toggleStackChange(args.newFile);
+
+			if (this._useInvalidatedEvent) {
+				this.sendEvent(new InvalidatedEvent( ['stack'] ));
+			}
+			this.sendResponse(response);
+		} 
+		else {
 			super.customRequest(command, response, args);
 		}
 	}

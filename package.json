@@ -97,6 +97,9 @@
         {
           "command": "extension.mock-debug.runEditorContents",
           "when": "resourceLangId == markdown"
+        },
+        {
+          "command": "extension.mock-debug.toggleStackChange"
         }
       ],
       "debug/variables/context": [
@@ -124,6 +127,13 @@
       {
         "command": "extension.mock-debug.toggleFormatting",
         "title": "Toggle between decimal and hex formatting"
+      },
+      {
+        "command": "extension.mock-debug.toggleStackChange",
+        "title": "Toggle changed call stack",
+        "category": "Mock Debug",
+        "enablement": "inDebugMode",
+        "icon": "$(globe)"
       }
     ],
     "breakpoints": [

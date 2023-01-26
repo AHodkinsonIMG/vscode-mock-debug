@@ -7,6 +7,7 @@
 
 'use strict';
 
+import path = require('path');
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
 import { MockDebugSession } from './mockDebug';
@@ -50,6 +51,19 @@ export function activateMockDebug(context: vscode.ExtensionContext, factory?: vs
 			const ds = vscode.debug.activeDebugSession;
 			if (ds) {
 				ds.customRequest('toggleFormatting');
+			}
+		}),
+		vscode.commands.registerCommand('extension.mock-debug.toggleStackChange', (variable) => {
+			const ds = vscode.debug.activeDebugSession;
+			const workspacePath = vscode.workspace?.workspaceFolders?.[0].uri.path || "";
+			const filename = 'subfunction.md';
+
+			const args = {
+				newFile: path.join(workspacePath,filename)
+			};
+
+			if (ds && workspacePath) {
+				ds.customRequest('toggleStackChange',args);
 			}
 		})
 	);

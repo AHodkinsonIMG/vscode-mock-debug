@@ -148,6 +148,8 @@ export class MockRuntime extends EventEmitter {
 	private namedException: string | undefined;
 	private otherExceptions = false;
 
+	private stackChange = false;
+	private stackChangeFile:string = "";
 
 	constructor(private fileAccessor: FileAccessor) {
 		super();
@@ -317,11 +319,23 @@ export class MockRuntime extends EventEmitter {
 			frames.push(stackFrame);
 		}
 
+		if (this.stackChange) {
+			frames[0].name = `STACK_CHANGED`;
+            frames[0].file = this.stackChangeFile;
+			frames[0].line = 0;
+			frames[0].column = 0;
+		}
+
 		return {
 			frames: frames,
 			count: words.length
 		};
 	}
+
+	public toggleStackChange(filename: string) {
+		this.stackChangeFile = filename;
+		this.stackChange = !this.stackChange;
+	};
 
 	/*
 	 * Determine possible column breakpoint positions for the given line.
