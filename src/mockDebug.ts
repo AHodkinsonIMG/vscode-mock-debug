@@ -817,7 +817,7 @@ export class MockDebugSession extends LoggingDebugSession {
 			this._runtime.toggleStackChange(args.newFile);
 
 			if (this._useInvalidatedEvent) {
-				this.sendEvent(new InvalidatedEvent( ['stack'] ));
+				this.sendEvent(new InvalidatedEvent( ['stacks'] ));
 			}
 			this.sendResponse(response);
 		} 
