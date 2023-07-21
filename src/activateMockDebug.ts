@@ -7,7 +7,6 @@
 
 'use strict';
 
-import path = require('path');
 import * as vscode from 'vscode';
 import { WorkspaceFolder, DebugConfiguration, ProviderResult, CancellationToken } from 'vscode';
 import { MockDebugSession } from './mockDebug';
@@ -58,8 +57,9 @@ export function activateMockDebug(context: vscode.ExtensionContext, factory?: vs
 			const workspacePath = vscode.workspace?.workspaceFolders?.[0].uri.path || "";
 			const filename = 'subfunction.md';
 
+			// Sorry Windows users!
 			const args = {
-				newFile: path.join(workspacePath,filename)
+				newFile: workspacePath + '/' + filename
 			};
 
 			if (ds && workspacePath) {
