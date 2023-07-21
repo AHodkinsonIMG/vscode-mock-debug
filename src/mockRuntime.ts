@@ -316,16 +316,17 @@ export class MockRuntime extends EventEmitter {
 				instruction: instruction
 			};
 
+			if (i === 0 && this.stackChange) {
+                		stackFrame.name = 'STACK_CHANGED';
+				stackFrame.file = this.stackChangeFile;
+				stackFrame.line = 0;
+				stackFrame.column = 0;
+
+			}
+			
 			frames.push(stackFrame);
 		}
-
-		if (this.stackChange) {
-			frames[0].name = `STACK_CHANGED`;
-            frames[0].file = this.stackChangeFile;
-			frames[0].line = 0;
-			frames[0].column = 0;
-		}
-
+		
 		return {
 			frames: frames,
 			count: words.length
